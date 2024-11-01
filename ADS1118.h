@@ -40,9 +40,9 @@ class ADS1118 {
         void begin();				///< This method initialize the SPI port and the config register
 #if defined(__AVR__)
         ADS1118(uint8_t io_pin_cs);         ///< Constructor
-#elif defined(ESP32)
+#elif defined(ESP32 || ARDUINO_ARCH_STM32)
         ADS1118(uint8_t io_pin_cs, SPIClass *spi = &SPI); 		///< Constructor
-	void begin(uint8_t sclk, uint8_t miso, uint8_t mosi);	///< This method initialize the SPI port and the config register        
+	void begin(uint8_t sclk, uint8_t miso, uint8_t mosi);	///< This method initialize the SPI port and the config register  
 #endif
 	double getTemperature();			///< Getting the temperature in degrees celsius from the internal sensor of the ADS1118
         uint16_t getADCValue(uint8_t inputs);					///< Getting a sample from the specified input

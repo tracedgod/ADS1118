@@ -73,7 +73,7 @@
 ADS1118::ADS1118(uint8_t io_pin_cs) {
     cs = io_pin_cs;
 }						///< This method initialize the SPI port and the config register        
-#elif defined(ESP32)
+#elif defined(ESP32 || ARDUINO_ARCH_STM32)
 /**
  * Constructor of the class
  * @param io_pin_cs a byte indicating the pin to be use as the chip select pin (CS)
@@ -97,7 +97,7 @@ void ADS1118::begin() {
     configRegister.bits={RESERVED, VALID_CFG, DOUT_PULLUP, ADC_MODE, RATE_8SPS, SINGLE_SHOT, FSR_0256, DIFF_0_1, START_NOW}; //Default values    
     DEBUG_BEGIN(configRegister); //Debug this method: print the config register in the Serial port
 }						///< This method initialize the SPI port and the config register        
-#elif defined(ESP32)
+#elif defined(ESP32 || ARDUINO_ARCH_STM32)
 /**
  * This method initialize the SPI port and the config register
  */
@@ -187,7 +187,7 @@ uint16_t ADS1118::getADCValue(uint8_t inputs) {
         dataLSB = SPI.transfer(configRegister.byte.lsb);
         configMSB = SPI.transfer(configRegister.byte.msb);
         configLSB = SPI.transfer(configRegister.byte.lsb);        
-#elif defined(ESP32)
+#elif defined(ESP32 || ARDUINO_ARCH_STM32)
         dataMSB = pSpi->transfer(configRegister.byte.msb);
 	dataLSB = pSpi->transfer(configRegister.byte.lsb);
 	configMSB = pSpi->transfer(configRegister.byte.msb);
@@ -271,7 +271,7 @@ double ADS1118::getTemperature() {
         dataLSB = SPI.transfer(configRegister.byte.lsb);
         configMSB = SPI.transfer(configRegister.byte.msb);
         configLSB = SPI.transfer(configRegister.byte.lsb);        
-#elif defined(ESP32)
+#elif defined(ESP32 || ARDUINO_ARCH_STM32)
         dataMSB = pSpi->transfer(configRegister.byte.msb);
 	dataLSB = pSpi->transfer(configRegister.byte.lsb);
 	configMSB = pSpi->transfer(configRegister.byte.msb);
